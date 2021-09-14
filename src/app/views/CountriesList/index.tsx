@@ -1,16 +1,29 @@
 import * as React from 'react';
-import {RouteComponentProps} from 'react-router-dom';
-import Navbar from '../../components/UI/Navbar';
+import PubSub from 'pubsub-js';
 import {getQueryParam} from '../../services/utils/url';
+import {fetchData} from '../../services/httpClient';
+import {API_ERROR, CLEAR_ERROR} from 'app/services/Error/constants';
 
-const CountriesList = ({history}: RouteComponentProps): JSX.Element => {
-	const goBack = () => {
-		history.goBack();
+const CountriesList = (): JSX.Element => {
+	const region = getQueryParam('region');
+
+	const init = () => {
+		return () => {
+			PubSub.publish(API_ERROR, CLEAR_ERROR);
+		};
 	};
 
-	const title = getQueryParam('region');
+	const fetchCountries = () => {
+		fetchData(`${process.env.COUNTRIES_API_BASE_URL}region/${region}`).then(
+			(response: []) => console.log(response)
+		);
+	};
 
-	return <Navbar goBack={goBack} page={title} />;
+	React.useEffect(init, []);
+
+	React.useEffect(fetchCountries, []);
+
+	return <span>{region}</span>;
 };
 
 export default CountriesList;

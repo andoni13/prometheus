@@ -1,4 +1,5 @@
-require('webpack');
+const webpack = require('webpack');
+const dotenv = require('dotenv').config({path: __dirname + '/.env'});
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -12,6 +13,9 @@ const plugins = [
 	}),
 	new HtmlWebpackPlugin({
 		template: 'index.html',
+	}),
+	new webpack.DefinePlugin({
+		'process.env': JSON.stringify(dotenv.parsed),
 	}),
 ];
 

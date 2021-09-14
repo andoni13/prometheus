@@ -1,19 +1,17 @@
 import * as React from 'react';
-import {NavbarProps} from 'app/components/UI/Navbar/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import style from './Navbar.module.styl';
+import {history} from '../../../services/history';
 
-const Navbar = ({goBack, page}: NavbarProps): JSX.Element => {
+const Navbar = (): JSX.Element => {
+	const goHome = () => {
+		history.push('/');
+	};
+
 	return (
 		<div className={style.nav}>
-			<div
-				data-testid="back"
-				className={style.nav__backButton}
-				onClick={goBack}>
-				<FontAwesomeIcon icon={faChevronLeft} />
+			<div data-testid="logo" className={style.nav__logo} onClick={goHome}>
+				Prometheus
 			</div>
-			<div className={style.nav__title}> {page} </div>
 		</div>
 	);
 };
