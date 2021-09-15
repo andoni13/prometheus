@@ -6,8 +6,13 @@ import {fetchData} from '../../services/httpClient';
 import {API_ERROR, CLEAR_ERROR} from 'app/services/Error/constants';
 import {LIST_ITEMS} from 'app/views/CountriesList/constants';
 import style from './CountriesList.module.styl';
+import {RouteComponentProps} from 'react-router-dom';
 
-const CountriesList = (): JSX.Element => {
+const CountriesList = ({
+	history,
+	location,
+	match,
+}: RouteComponentProps<any>): JSX.Element => {
 	const region = getQueryParam('region');
 	const [countries, setCountries] = React.useState([]);
 
@@ -28,7 +33,14 @@ const CountriesList = (): JSX.Element => {
 
 	return (
 		<div className={style.countries}>
-			<SortableList items={countries} listItems={LIST_ITEMS} title={region} />
+			<SortableList
+				history={history}
+				items={countries}
+				listInfoItems={LIST_ITEMS}
+				location={location}
+				match={match}
+				title={region}
+			/>
 		</div>
 	);
 };

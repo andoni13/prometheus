@@ -1,41 +1,59 @@
 import * as React from 'react';
-import Panel from 'app/components/UI/Panel';
-import {ListItem, SortableListProps} from './types';
-import style from './SortableList.module.styl';
-import {ITEM_FORMAT_NUMBER} from 'app/views/CountriesList/constants';
+import Panel from '../Panel';
+import {SortObject, SortableListProps} from './types';
+import {getQueryParam, updateQueryParams} from '../../../services/utils/url';
+import SortTableBody from './SortTableBody';
+import SortTableHeader from './SortTableHeader';
+import {sortASC, sortDSC} from '../../../services/utils/arrays';
 
 const SortableList = ({
+	history,
+	location,
 	items = [],
-	listItems = [],
+	listInfoItems = [],
 	title = '',
-}: SortableListProps): JSX.Element => {
-	const renderHeader = (item: ListItem) => {
-		return <div className={style.list__cellHeader}>{item.header}</div>;
+}: SortableListProps): JSX.Element | null => {
+	const initialSortState: SortObject = {};
+	const initialSortedItems: any = [];
+	const [sort, setSort] = React.useState(initialSortState);
+	const [sortedItems, setSortedItems] = React.useState(initialSortedItems);
+
+	const setInitialSortValues = () => {
+		const initialValues = listInfoItems.reduce((acc, item) => {
+			return {...acc, [item.cell]: item.sort};
+		}, {});
+		setSort(initialValues);
 	};
 
-	const renderCells = (item: ListItem, row: any) => {
-		if (item.format === ITEM_FORMAT_NUMBER) {
-			return (
-				<span className={style.list__cell}>
-					{new Intl.NumberFormat('en-US').format(row[item.cell])}
-				</span>
-			);
+	const sortListItems = (sortBy: string, sortDir: string): string[] => {
+		return sortDir === 'dsc' ? sortDSC(items, sortBy) : sortASC(items, sortBy);
+	};
+
+	const sortItems = () => {
+		const index = getQueryParam('sort');
+		if (items && items.length && index) {
+			const [sortBy, sortDir] = index.split(':');
+			const sortedItems = sortListItems(sortBy, sortDir);
+			setSortedItems(sortedItems);
+			setSort({...sort, [sortBy]: sortDir});
 		}
-		return <span className={style.list__cell}>{row[item.cell]}</span>;
 	};
 
-	const renderBody = (row: any) => {
-		return (
-			<div className={style.list__row}>
-				{listItems.map(item => renderCells(item, row))}
-			</div>
-		);
+	const handleSort = (index: string) => () => {
+		const newSort = sort[index] === 'asc' ? 'dsc' : 'asc';
+		const updatedParams = updateQueryParams('sort', `${index}:${newSort}`);
+		history.push({search: `?${updatedParams}`});
 	};
+
+	React.useEffect(sortItems, [location, items]);
+	React.useEffect(setInitialSortValues, []);
+
+	const listItems = !sortedItems.length ? items : sortedItems;
 
 	return (
-		<Panel title={title}>
-			<div className={style.list__header}>{listItems.map(renderHeader)}</div>
-			<div className={style.list__rows}>{items.map(renderBody)}</div>
+		<Panel isLoading={!listItems || !listItems.length} title={title}>
+			<SortTableHeader handleSort={handleSort} listInfoItems={listInfoItems} />
+			<SortTableBody listItems={listItems} listInfoItems={listInfoItems} />
 		</Panel>
 	);
 };

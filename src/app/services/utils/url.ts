@@ -3,4 +3,10 @@ const getQueryParam = (param: string): string | null => {
 	return params.get(param);
 };
 
-export {getQueryParam};
+const updateQueryParams = (query: string, param: string): string | void => {
+	const params = new URLSearchParams(document.location.search.substring(1));
+	params.set(query, param);
+	return params.toString();
+};
+
+export {getQueryParam, updateQueryParams};
