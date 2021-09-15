@@ -87,6 +87,7 @@ module.exports = (env, argv) => {
 		devServer: {
 			// contentBase: path.join(__dirname, 'dist/client'),
 			compress: true,
+			historyApiFallback: true,
 			port: 3001,
 		},
 	};

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type PanelProps = {
 	children: React.ReactNode;
-	title?: string;
+	title?: string | null;
 };
 
 export {PanelProps};
