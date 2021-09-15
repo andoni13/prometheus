@@ -4,12 +4,13 @@ type ListItem = {
 	header: string;
 	cell: string;
 	format: string | null;
-	sort: string;
+	sort: string | null;
 };
 
 type SortTableHeaderProps = {
 	handleSort: (index: string) => any;
 	listInfoItems?: ListItem[];
+	sort: SortObject;
 };
 
 type SortTableBodyProps = {
@@ -26,11 +27,17 @@ type PropTypes = {
 type SortableListProps = RouteComponentProps<any> & PropTypes;
 
 type SortObject = {
-	[s: string]: string;
+	[s: string]: any;
+};
+
+type SortIconsProps = {
+	dir?: string | null;
+	isActive?: boolean;
 };
 
 export {
 	ListItem,
+	SortIconsProps,
 	SortObject,
 	SortTableHeaderProps,
 	SortableListProps,

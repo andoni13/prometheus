@@ -35,7 +35,7 @@ const SortableList = ({
 			const [sortBy, sortDir] = index.split(':');
 			const sortedItems = sortListItems(sortBy, sortDir);
 			setSortedItems(sortedItems);
-			setSort({...sort, [sortBy]: sortDir});
+			setSort({...sort, [sortBy]: sortDir, activeColumn: sortBy});
 		}
 	};
 
@@ -52,7 +52,11 @@ const SortableList = ({
 
 	return (
 		<Panel isLoading={!listItems || !listItems.length} title={title}>
-			<SortTableHeader handleSort={handleSort} listInfoItems={listInfoItems} />
+			<SortTableHeader
+				handleSort={handleSort}
+				listInfoItems={listInfoItems}
+				sort={sort}
+			/>
 			<SortTableBody listItems={listItems} listInfoItems={listInfoItems} />
 		</Panel>
 	);

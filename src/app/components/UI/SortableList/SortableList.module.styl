@@ -14,7 +14,9 @@
     padding 1rem
     text-align left
   &__cellHeader
+    align-items center
     cursor pointer
+    display flex
     font-weight 700
   &__cell:nth-child(1)
     width: 100%
@@ -26,3 +28,26 @@
     grid-template-columns 3fr 12rem
   &__row:hover
     background lightGrey
+
+.sort__icons, .sort__iconAsc, .sort__iconDsc
+  align-items center
+  display flex
+  flex-direction column
+  justify-content center
+  font-size 1.5rem
+  height 2rem
+  margin-left 0.5rem
+  svg
+    position relative
+    top 7px
+    &:last-child
+      top -7px
+.sort__iconAsc
+  svg
+    &:last-child
+      top 2px
+
+.sort__iconDsc
+  svg
+    &:last-child
+      top -2px
