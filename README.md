@@ -1,6 +1,6 @@
 # Front End Task
 
-🪐**Prometheus**
+🛫 **Prometheus** 🛫
 
 Country list table.
 
@@ -14,6 +14,12 @@ Country list table.
 
 ```
 yarn install
+```
+
+## Copy .env variables
+
+```
+ cp .env.exmaple .env
 ```
 
 ## Running the app
@@ -77,11 +83,17 @@ yarn run lint
 ## Tested on
 
 ```
-Chrome Version 87.0.4280.88 (Mac macOS Catalina)
-Safari Versión 13.1 (15609.1.20.111.8) (Mac macOS Catalina)
-Firefox Developer Edition Version 72.0b9 (Mac macOS Catalina)
-Chrome 87.0.4280.101 (Android 11.0;Pixel 3a)
+Chrome Version 93.0.4577.63 (Mac macOS Catalina 10.15.7 )
+Safari Versión 14.1.2 (15611.3.10.1.5, 15611) (Mac macOS Catalina 10.15.7 )
+Firefox Developer Edition Version 90.0b12 (Mac macOS Catalina 10.15.7 )
+Chrome 93.0.4577.62 (Android 11.0;Pixel 3a)
 ```
+
+## Technical proposal (Todos)
+
+-   Add tests and expand test coverage
+-   Improve UI    
+-   Add smooth transitions to alert messages and modal
 
 #### Contact Email
 

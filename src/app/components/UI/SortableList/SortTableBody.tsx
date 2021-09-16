@@ -28,7 +28,7 @@ const SortTableBody = ({
 			<div
 				className={style.list__row}
 				key={index}
-				onClick={handleRow(true, row)}>
+				onClick={handleRow && handleRow(true, row)}>
 				{listInfoItems?.map(item => renderCells(item, row))}
 			</div>
 		);

@@ -3,7 +3,9 @@ import fetchAPIHandler from '../fetchAPI';
 import {server} from '../../../../../test/server';
 
 beforeAll(() => {
-	jest.spyOn(console, 'error').mockImplementation(() => {});
+	jest.spyOn(console, 'error').mockImplementation(() => {
+		return null;
+	});
 	server.listen({onUnhandledRequest: 'error'});
 });
 

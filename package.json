@@ -1,7 +1,7 @@
 {
-  "name": "omnipresent-test",
+  "name": "prometheus-test",
   "version": "1.0.0",
-  "description": "Omnipresent job application task",
+  "description": "Job application task",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./dist/client && webpack --mode=production",
