@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Panel from '../Panel';
-import {SortObject, SortableListProps} from './types';
+import {SortableListProps} from './types';
 import {getQueryParam, updateQueryParams} from '../../../services/utils/url';
 import SortTableBody from './SortTableBody';
 import SortTableHeader from './SortTableHeader';
@@ -10,13 +10,12 @@ const SortableList = ({
 	history,
 	location,
 	items = [],
+	handleRow,
 	listInfoItems = [],
 	title = '',
 }: SortableListProps): JSX.Element | null => {
-	const initialSortState: SortObject = {};
-	const initialSortedItems: any = [];
-	const [sort, setSort] = React.useState(initialSortState);
-	const [sortedItems, setSortedItems] = React.useState(initialSortedItems);
+	const [sort, setSort] = React.useState({} as any);
+	const [sortedItems, setSortedItems] = React.useState([] as any);
 
 	const setInitialSortValues = () => {
 		const initialValues = listInfoItems.reduce((acc, item) => {
@@ -40,7 +39,7 @@ const SortableList = ({
 	};
 
 	const handleSort = (index: string) => () => {
-		const newSort = sort[index] === 'asc' ? 'dsc' : 'asc';
+		const newSort = sort[index] === 'asc' || !sort[index] ? 'dsc' : 'asc';
 		const updatedParams = updateQueryParams('sort', `${index}:${newSort}`);
 		history.push({search: `?${updatedParams}`});
 	};
@@ -57,7 +56,11 @@ const SortableList = ({
 				listInfoItems={listInfoItems}
 				sort={sort}
 			/>
-			<SortTableBody listItems={listItems} listInfoItems={listInfoItems} />
+			<SortTableBody
+				listItems={listItems}
+				listInfoItems={listInfoItems}
+				handleRow={handleRow}
+			/>
 		</Panel>
 	);
 };

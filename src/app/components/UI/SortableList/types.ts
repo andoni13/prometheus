@@ -10,25 +10,23 @@ type ListItem = {
 type SortTableHeaderProps = {
 	handleSort: (index: string) => any;
 	listInfoItems?: ListItem[];
-	sort: SortObject;
+	sort: {[s: string]: any};
 };
 
 type SortTableBodyProps = {
+	handleRow: (isOpen: boolean, data: any) => any;
 	listItems?: string[];
 	listInfoItems?: ListItem[];
 };
 
 type PropTypes = {
 	items?: string[];
+	handleRow: (isOpen: boolean, data: any) => any;
 	listInfoItems?: ListItem[];
 	title: string | null;
 };
 
 type SortableListProps = RouteComponentProps<any> & PropTypes;
-
-type SortObject = {
-	[s: string]: any;
-};
 
 type SortIconsProps = {
 	dir?: string | null;
@@ -38,7 +36,6 @@ type SortIconsProps = {
 export {
 	ListItem,
 	SortIconsProps,
-	SortObject,
 	SortTableHeaderProps,
 	SortableListProps,
 	SortTableBodyProps,

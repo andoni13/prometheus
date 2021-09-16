@@ -4,6 +4,7 @@ import {ListItem, SortTableBodyProps} from './types';
 import {ITEM_FORMAT_NUMBER} from '../../../views/CountriesList/constants';
 
 const SortTableBody = ({
+	handleRow,
 	listItems,
 	listInfoItems,
 }: SortTableBodyProps): JSX.Element => {
@@ -24,7 +25,10 @@ const SortTableBody = ({
 
 	const renderBody = (row: any, index: number) => {
 		return (
-			<div className={style.list__row} key={index}>
+			<div
+				className={style.list__row}
+				key={index}
+				onClick={handleRow(true, row)}>
 				{listInfoItems?.map(item => renderCells(item, row))}
 			</div>
 		);

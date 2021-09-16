@@ -1,0 +1,37 @@
+@import '../../../../../../styles/partials/_variables.styl'
+
+.modal
+  &__body
+    display flex
+    flex-direction column
+    justify-content space-between
+    margin-top 2rem
+  &__bodySection
+    margin 1rem 0
+  &__bodySectionTitle
+    font-size 1.8rem
+    font-weight 700
+    margin-bottom 1rem
+  &__bodySectionContent
+    display grid
+    font-size 1.4rem
+    font-weight 400
+    grid-gap 1rem
+    grid-template-columns repeat(1, 1fr)
+    @media screen and (min-width tablet)
+      grid-template-columns repeat(3, 1fr)
+    @media screen and (min-width phablet)
+      grid-gap 1.5rem
+      grid-template-columns repeat(4, 1fr)
+  &__bodyList
+    margin 0
+  &__bodyItemTitle
+    font-weight 700
+  &__bodyItemContent
+    margin-top 0.25rem
+  &__content
+    margin-left 0.5rem
+  &__header
+    align-items center
+    display flex
+
